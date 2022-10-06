@@ -3,9 +3,10 @@ const button = document.getElementById('btn')
 const getUsers = () => {
     getLoader()
     const localData = JSON.parse(localStorage.getItem("users"))
-    localData && localData.time > Date.now() ?
-        printUsers(localData.content) :
-        getUsersFromAPI()
+        // localData && localData.time > Date.now() ?
+    printUsers(localData.content)
+        // :
+        // getUsersFromAPI()
 }
 
 const getUsersFromAPI = () => {
@@ -39,25 +40,46 @@ const getLoader = () => {
 }
 
 const printUser = ({ avatar, id, email, first_name, last_name }) => {
-    return `<div class="user-card">
-                <p class="user-card-id">${id}</p>
-                <p class="user-email"><a href='#'>${email}</a></p>
-                <p>${first_name}</p>
-                <p>${last_name}</p>
-                <img 
-                    src="${avatar}" 
-                    class="user-card-img" 
-                ></img>
+    return `<div class="row border-bottom p-2">
+                <div class="col-md-1 justify-content-center">
+                    <p class="text-center">${id}</p>
+                </div>
+                <div class="col-md-4 justify-content-center">
+                    <p class="text-center"><a href='#'>${email}</a></p>
+                </div>
+                <div class="col-md-3 justify-content-center">
+                    <p class="text-center">${first_name}</p>
+                </div>
+                <div class="col-md-3 justify-content-center">
+                    <p class="text-center"> ${last_name}</p>
+                </div>
+                <div class="col-md-1 justify-content-center text-center">
+                    <img 
+                        src="${avatar}"
+                        class="rounded-circle mx-auto"
+                        style="width: 50px"
+                    ></img>
+                </div>
             <div/>`
 }
 
-const userHeader = `<div class="user-card-header">
-                        <p class="user-card-id">id</p>
-                        <p class="user-email">Email</p>
-                        <p>First name</p>
-                        <p>Last name</p>
-                        <p class="user-card-img-header">Image</p>
-                    <div/>`
+const userHeader = `<div class="row border-bottom border-2 border-dark" >
+                        <div class="col-md-1 justify-content-center">
+                            <p class="text-center">Id</p>
+                        </div>
+                        <div class="col-md-4 justify-content-center">
+                            <p class="text-center">Email</p>
+                        </div>
+                        <div class="col-md-3 justify-content-center">
+                            <p class="text-center">First name</p>
+                        </div>
+                        <div class="col-md-3 justify-content-center">
+                            <p class="text-center">Last name</p>
+                        </div>
+                        <div class="col-md-1 justify-content-center">
+                            <p class="text-center">Image</p>
+                        </div>
+                    </div>`
 
 const printUsers = (users) => {
     const container = document.getElementById("users-container")
@@ -72,5 +94,7 @@ const saveUsersToLocalStorage = data => {
     }
     localStorage.setItem('users', JSON.stringify(users))
 }
+
+getUsers()
 
 button.addEventListener("click", getUsers)
