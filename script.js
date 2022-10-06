@@ -3,10 +3,9 @@ const button = document.getElementById('btn')
 const getUsers = () => {
     getLoader()
     const localData = JSON.parse(localStorage.getItem("users"))
-        // localData && localData.time > Date.now() ?
-    printUsers(localData.content)
-        // :
-        // getUsersFromAPI()
+    localData && localData.time > Date.now() ?
+        printUsers(localData.content) :
+        getUsersFromAPI()
 }
 
 const getUsersFromAPI = () => {
