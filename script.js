@@ -62,21 +62,21 @@ const printUser = ({ avatar, id, email, first_name, last_name }) => {
             <div/>`
 }
 
-const userHeader = `<div class="row border-bottom border-2 border-dark" >
+const userHeader = `<div class="row border-bottom border-3 border-dark" >
                         <div class="col-md-1 justify-content-center">
-                            <p class="text-center">Id</p>
+                            <p class="text-center"><b>Id</b></p>
                         </div>
                         <div class="col-md-4 justify-content-center">
-                            <p class="text-center">Email</p>
+                            <p class="text-center"><b>Email</b></p>
                         </div>
                         <div class="col-md-3 justify-content-center">
-                            <p class="text-center">First name</p>
+                            <p class="text-center"><b>First name</b></p>
                         </div>
                         <div class="col-md-3 justify-content-center">
-                            <p class="text-center">Last name</p>
+                            <p class="text-center"><b>Last name</b></p>
                         </div>
                         <div class="col-md-1 justify-content-center">
-                            <p class="text-center">Image</p>
+                            <p class="text-center"><b>Image</b></p>
                         </div>
                     </div>`
 
