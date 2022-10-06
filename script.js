@@ -1,31 +1,21 @@
 const button = document.getElementById('btn')
 
-const runGetters = () => {
-    getLoader()
-    getUsers()
-}
-
 const getUsers = () => {
-    const usersFromLocal = JSON.parse(localStorage.getItem("users"))
-    if (usersFromLocal && usersFromLocal.time > Date.now()) {
-        getUsersFromLocalStorage()
-        console.log("Printed from local")
-    } else {
+    getLoader()
+    const localData = JSON.parse(localStorage.getItem("users"))
+    localData && localData.time > Date.now() ?
+        printUsers(localData.content) :
         getUsersFromAPI()
-        console.log("Printed from API")
-    }
 }
 
-const getUsersFromAPI = async() => {
+const getUsersFromAPI = () => {
     fetch("https://reqres.in/api/users?delay=2")
         .then(response => response.json())
         .then(users => {
-            console.log(users)
             printUsers(users.data)
             saveUsersToLocalStorage(users.data)
         })
 }
-
 
 const printLoader = () => `<div class="container-sm">
                                 <div class="row">
@@ -48,21 +38,18 @@ const getLoader = () => {
     container.innerHTML = printLoader()
 }
 
-
-
-const printUser = (avatar_url, id, email, first_name, last_name) => {
+const printUser = ({ avatar, id, email, first_name, last_name }) => {
     return `<div class="user-card">
                 <p class="user-card-id">${id}</p>
                 <p class="user-email"><a href='#'>${email}</a></p>
                 <p>${first_name}</p>
                 <p>${last_name}</p>
                 <img 
-                    src="${avatar_url}" 
+                    src="${avatar}" 
                     class="user-card-img" 
                 ></img>
             <div/>`
 }
-
 
 const userHeader = `<div class="user-card-header">
                         <p class="user-card-id">id</p>
@@ -75,9 +62,7 @@ const userHeader = `<div class="user-card-header">
 const printUsers = (users) => {
     const container = document.getElementById("users-container")
     container.innerHTML = userHeader
-    for (let user of users) {
-        container.innerHTML += printUser(user.avatar, user.id, user.email, user.first_name, user.last_name)
-    }
+    users.forEach(u => container.innerHTML += printUser(u))
 }
 
 const saveUsersToLocalStorage = data => {
@@ -88,9 +73,4 @@ const saveUsersToLocalStorage = data => {
     localStorage.setItem('users', JSON.stringify(users))
 }
 
-const getUsersFromLocalStorage = () => {
-    const userList = JSON.parse(localStorage.getItem('users'))
-    printUsers(userList.content)
-}
-
-button.addEventListener("click", runGetters)
+button.addEventListener("click", getUsers)
