@@ -94,6 +94,4 @@ const saveUsersToLocalStorage = data => {
     localStorage.setItem('users', JSON.stringify(users))
 }
 
-getUsers()
-
 button.addEventListener("click", getUsers)
